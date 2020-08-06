@@ -120,7 +120,6 @@ public class FirebaseAuthHelper
                                     default:
                                         status.status("Verifica tu conexión a Internet");
                                         break;
-
                                 }
                                 Log.e("error",error);
                                 dialog.dismiss();

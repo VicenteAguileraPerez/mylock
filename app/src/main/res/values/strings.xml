@@ -5,4 +5,10 @@
     <string name="login">Login</string>
     <string name="registrarse">Registrarse</string>
     <string name="ingresar_sesi_n">Ingresar Sesión</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="add_telefono">Agregar teléfono</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="telefono">Telefono</string>
+    <string name="nombre">Nombre</string>
+    <string name="agregar">Agregar</string>
 </resources>
