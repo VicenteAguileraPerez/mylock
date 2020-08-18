@@ -11,4 +11,6 @@
     <string name="telefono">Telefono</string>
     <string name="nombre">Nombre</string>
     <string name="agregar">Agregar</string>
+    <string name="delete">delete</string>
+    <string name="edit">edit</string>
 </resources>

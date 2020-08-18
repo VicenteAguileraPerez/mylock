@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.vicenteaguilera.mylock.interfaces.Status;
+import com.vicenteaguilera.mylock.interfaces.Telefonos;
 import com.vicenteaguilera.mylock.models.Telefono;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.Objects;
 public class FirestoreHelper
 {
     private Status status;
+    private Telefonos telefonos;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference directorio = db.collection("telefonos");
 
@@ -69,7 +71,7 @@ public class FirestoreHelper
             }
         });
     }
-    public void  getAllTelefonos()
+    public void getAllTelefonos()
     {
         final List<Telefono> telefonoList = new ArrayList<>();
         directorio.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -94,11 +96,12 @@ public class FirestoreHelper
                        );
                     }
                     //interface
-                   // System.out.println("eliminado");
+                    telefonos.getAll(telefonoList);
                 }
                 else
                 {
                     System.out.println("error"+task.getException().getMessage());
+                    status.status("Error al cargar la lista verifica tu conexión");
                 }
             }
         });
@@ -106,5 +109,9 @@ public class FirestoreHelper
     public void setOnStatusListener(Status status)
     {
         this.status=status;
+    }
+    public void setOnTelefonosListener(Telefonos telefonos)
+    {
+        this.telefonos = telefonos;
     }
 }
