@@ -101,7 +101,7 @@ public class FirestoreHelper
                 else
                 {
                     System.out.println("error"+task.getException().getMessage());
-                    status.status("Error al cargar la lista verifica tu conexión");
+                    status.status("Error al cargar la lista, verifica tu conexión");
                 }
             }
         });
