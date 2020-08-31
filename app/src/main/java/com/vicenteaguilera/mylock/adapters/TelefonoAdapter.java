@@ -64,7 +64,7 @@ public class TelefonoAdapter extends BaseAdapter
             telefonoHolder.imageButton_delete = contentView.findViewById(R.id.imageButton_delete);
             telefonoHolder.imageButton_edit = contentView.findViewById(R.id.imageButton_edit);
             contentView.setTag(telefonoHolder);
-
+            telefonoHolder.textView_nombre.setSelected(true);
             telefonoHolder.textView_nombre.setText(telefono.getNombre().concat(" ").concat(telefono.getApellido()));
             telefonoHolder.textView_telefono.setText(telefono.getTelefono());
             telefonoHolder.textView_email.setText(telefono.getEmail());

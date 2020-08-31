@@ -13,4 +13,6 @@
     <string name="agregar">Agregar</string>
     <string name="delete">delete</string>
     <string name="edit">edit</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="contactos">Contactos</string>
 </resources>

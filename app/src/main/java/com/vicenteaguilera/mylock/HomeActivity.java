@@ -1,9 +1,12 @@
 package com.vicenteaguilera.mylock;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,8 +16,8 @@ import com.vicenteaguilera.mylock.utility.FirebaseAuthHelper;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Button button_logout;
-    FirebaseAuthHelper firebaseAuthHelper = new FirebaseAuthHelper();
+
+   private FirebaseAuthHelper firebaseAuthHelper = new FirebaseAuthHelper();
 
     @Override
     protected void onStart() {
@@ -38,20 +41,27 @@ public class HomeActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        button_logout = findViewById(R.id.button_logout);
-        button_logout.setOnClickListener(new View.OnClickListener()
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        int id = item.getItemId();
+        switch (id)
         {
-            @Override
-            public void onClick(View view)
-            {
+            case  R.id.item_cerrar_sesion:
                 ProgressDialog dialog = ProgressDialog.show(HomeActivity.this, "",
                         "Saliendo, nos vemos pronto!!...", true);
                 dialog.show();
                 firebaseAuthHelper.signout(dialog);
-                User user = FirebaseAuthHelper.getUser();
-
-                //Toast.makeText(HomeActivity.this,user==null?"Soy nulo":user.getUid(),Toast.LENGTH_SHORT).show();
-            }
-        });
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

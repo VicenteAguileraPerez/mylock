@@ -89,7 +89,7 @@ public class FirebaseAuthHelper
 
     }
     //ingresar
-    public void signInWithEmailAndPassword(final String email, String password, final ProgressDialog dialog)
+    public void signInWithEmailAndPassword(final String email, String password, final ProgressDialog dialog, final Context context)
     {
         if(stringHelper.isNotEmptyCredentials(email,password))
         {
@@ -102,11 +102,13 @@ public class FirebaseAuthHelper
                                 dialog.dismiss();
                                 Intent intent = new Intent(context, HomeActivity.class);
                                 context.startActivity(intent);
+                                ((Activity) context).finish();
+
                             }
                             else
                             {
                                 String error = Objects.requireNonNull(task.getException()).getMessage();
-                                switch (error)
+                                switch (Objects.requireNonNull(error))
                                 {
                                     case "There is no user record corresponding to this identifier. The user may have been deleted.":
                                         status.status("Esas credenciales no existen en la base de datos o el email es invalido");
@@ -139,6 +141,7 @@ public class FirebaseAuthHelper
        dialog.dismiss();
        Intent intent = new Intent(context, LoginActivity.class);
        context.startActivity(intent);
+       ((Activity )context).finish();
     }
 
 

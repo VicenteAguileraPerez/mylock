@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity //implements Status
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAuthHelper.setContext(this);
+
         firebaseAuthHelper.setOnStatusListener(new Status() {
             @Override
             public void status(String message)
@@ -45,7 +45,9 @@ public class LoginActivity extends AppCompatActivity //implements Status
         {
             Log.e("users",user.getUid());
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -70,7 +72,7 @@ public class LoginActivity extends AppCompatActivity //implements Status
                 ProgressDialog dialog = ProgressDialog.show(LoginActivity.this, "",
                         "Cargando. Porfa espera...", true);
                 dialog.show();
-                firebaseAuthHelper.signInWithEmailAndPassword(editText_email.getText().toString(),editText_password.getText().toString(),dialog);
+                firebaseAuthHelper.signInWithEmailAndPassword(editText_email.getText().toString(),editText_password.getText().toString(),dialog,LoginActivity.this);
             }
         });
         button_registrarse.setOnClickListener(new View.OnClickListener() {
