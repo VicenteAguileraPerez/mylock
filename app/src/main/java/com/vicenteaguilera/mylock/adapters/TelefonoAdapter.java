@@ -83,13 +83,12 @@ public class TelefonoAdapter extends BaseAdapter
                 public void onClick(View view)
                 {
                     final AlertDialog.Builder  alertDialogBuilder = new AlertDialog.Builder(TelefonoAdapter.this.context);
-                    final AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.setCancelable(false);
                     alertDialogBuilder.setTitle("Eliminación");
                     alertDialogBuilder.setMessage("¿Quieres eliminar el teléfono de: "+telefono.getNombre()+"?");
-                    alertDialogBuilder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                    alertDialogBuilder.setPositiveButton("Eliminar",
+                            new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i)
+                        public void onClick(DialogInterface alertDialog, int i)
                         {
                             //eliminacion de firebase
                             new FirestoreHelper().deleteTelefono(telefono.getUid());
@@ -98,16 +97,20 @@ public class TelefonoAdapter extends BaseAdapter
                             // notificacion del cambio en la lista
                             notifyDataSetChanged();
 
-                            alertDialog.dismiss();
+                            alertDialog.cancel();
                         }
                     });
                     alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            alertDialog.dismiss();
+                        public void onClick(DialogInterface alertDialog, int i) {
+                            alertDialog.cancel();
                         }
                     });
-                    alertDialog.show();
+                    alertDialogBuilder.show();
+
+                    /**
+                     *
+                     */
 
                 }
             });

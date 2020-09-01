@@ -4,4 +4,8 @@
         android:id="@+id/item_cerrar_sesion"
         android:title="@string/cerrar_sesi_n"
         />
+    <item
+        android:id="@+id/item_lampara"
+        android:title="@string/l_mpara"
+        />
 </menu>

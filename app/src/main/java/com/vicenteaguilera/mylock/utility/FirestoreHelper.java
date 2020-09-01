@@ -6,6 +6,8 @@ import android.app.ProgressDialog;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -55,9 +57,32 @@ public class FirestoreHelper
        });
 
     }
-    public void deleteTelefono(String iDtelefono)
+    public void editTelefono(String idTelefono,String nombre, String apellido, String email, String telefono)
     {
-        directorio.document(iDtelefono).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+        Map<String,Object> telefonoMap = new HashMap<>();
+        telefonoMap.put("nombre",nombre);
+        telefonoMap.put("apellido",apellido);
+        telefonoMap.put("telefono",telefono);
+        telefonoMap.put("email",email);
+
+        directorio.document(idTelefono).update(telefonoMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                       // status.status("DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //status.status("Error updating the documento!");
+                    }
+                });
+
+    }
+    public void deleteTelefono(String idTelefono)
+    {
+        directorio.document(idTelefono).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {
