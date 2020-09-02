@@ -34,9 +34,9 @@ public class FirebaseAuthHelper
     }
 
     public static User getUser()
-    {
-        return createUser(mAuth.getCurrentUser());
-    }
+{
+    return createUser(mAuth.getCurrentUser());
+}
     private static User createUser(FirebaseUser firebaseUser)
     {
         return (firebaseUser!=null)?new User(/*uid*/firebaseUser.getUid()):null;

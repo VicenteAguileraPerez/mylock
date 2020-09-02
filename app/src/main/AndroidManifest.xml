@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.vicenteaguilera.mylock">
 
+   <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera2.flash"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application

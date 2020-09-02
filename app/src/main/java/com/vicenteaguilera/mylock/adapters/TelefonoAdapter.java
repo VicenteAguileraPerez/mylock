@@ -13,9 +13,8 @@ import android.widget.TextView;
 import com.vicenteaguilera.mylock.R;
 import com.vicenteaguilera.mylock.models.Telefono;
 import com.vicenteaguilera.mylock.utility.FirestoreHelper;
-
 import java.util.List;
-import java.util.Objects;
+
 
 
 public class TelefonoAdapter extends BaseAdapter

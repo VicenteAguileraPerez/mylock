@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +19,9 @@ import com.vicenteaguilera.mylock.utility.FirebaseAuthHelper;
 
 public class HomeActivity extends AppCompatActivity {
 
-
+   private CameraManager cameraManager;
+   private  String camaraId;
+   private boolean isActive = false;
    private FirebaseAuthHelper firebaseAuthHelper = new FirebaseAuthHelper();
 
     @Override
@@ -41,6 +46,14 @@ public class HomeActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        try {
+            camaraId = cameraManager.getCameraIdList()[0];
+        }
+        catch ( CameraAccessException cae)
+        {
+            Toast.makeText(HomeActivity.this,"This phone doesn't have camaras",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -61,7 +74,22 @@ public class HomeActivity extends AppCompatActivity {
                 dialog.show();
                 firebaseAuthHelper.signout(dialog);
                 break;
+            case  R.id.item_lampara:
+                isActive = !isActive;
+                flashOnAndOff(camaraId,isActive);
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void flashOnAndOff(String camaraId,boolean enable)
+    {
+        try {
+            cameraManager.setTorchMode(camaraId,enable);
+        }
+        catch (CameraAccessException cae)
+        {
+            Toast.makeText(HomeActivity.this,"Opps, this camara doesn't flash",Toast.LENGTH_SHORT).show();
+
+        }
     }
 }

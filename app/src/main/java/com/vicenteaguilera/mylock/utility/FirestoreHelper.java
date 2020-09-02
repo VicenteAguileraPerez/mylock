@@ -4,13 +4,17 @@ package com.vicenteaguilera.mylock.utility;
 import android.app.ProgressDialog;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.vicenteaguilera.mylock.interfaces.Status;
@@ -96,7 +100,7 @@ public class FirestoreHelper
             }
         });
     }
-    public void getAllTelefonos()
+    public void getAllTelefonos()//
     {
         final List<Telefono> telefonoList = new ArrayList<>();
         directorio.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -131,6 +135,38 @@ public class FirestoreHelper
             }
         });
     }
+    public void listenTelefonosRealtime()
+    {
+        directorio.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot documents,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            return;
+                        }
+                        List<Telefono> telefonoList = new ArrayList<>();
+                        Map<String,Object> telefono;
+                        for (QueryDocumentSnapshot document : documents)
+                        {
+                            telefono = document.getData();
+                            telefonoList.add(
+                                    new Telefono
+                                            (
+                                                    document.getId(),
+                                                    String.valueOf(telefono.get("nombre")),
+                                                    String.valueOf(telefono.get("apellido")),
+                                                    String.valueOf(telefono.get("telefono")),
+                                                    String.valueOf(telefono.get("email"))
+                                            )
+                            );
+                        }
+                        status.status("Cambio de telefonos");
+                        //interface
+                        telefonos.getAll(telefonoList);
+                    }
+                });
+    }
+
     public void setOnStatusListener(Status status)
     {
         this.status=status;
@@ -140,3 +176,5 @@ public class FirestoreHelper
         this.telefonos = telefonos;
     }
 }
+
+

@@ -32,6 +32,8 @@ public class ListaFragment extends Fragment implements Status, Telefonos {
         super.onCreate(savedInstanceState);
         firestoreHelper.setOnStatusListener(this);
         firestoreHelper.setOnTelefonosListener(this);
+        //realtime data from cloud
+        firestoreHelper.listenTelefonosRealtime();
 
 
     }
@@ -77,7 +79,7 @@ public class ListaFragment extends Fragment implements Status, Telefonos {
     @Override
     public void status(String message)
     {
-        Toast.makeText(Objects.requireNonNull(getView()).getContext(),message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(Objects.requireNonNull(getActivity()),message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
